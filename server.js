@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { db, run, get, all, initDb, commit, rollback } = require('./database');
+const { db, run, get, all, initDb } = require('./database');
 
 const app = express();
 app.use(express.json());
