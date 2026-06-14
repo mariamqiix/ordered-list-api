@@ -110,6 +110,7 @@ const PORT = 3000;
         [listId]
       );
       const maxPos = maxPositionDB?.max_positoin || 0;
+      await run('BEGIN TRANSACTION');
 
       if (newPosition > maxPos) {
         return res.status(400).json({ error: 'Invalid position' });
@@ -134,10 +135,10 @@ const PORT = 3000;
 
         await run('UPDATE items SET position = ? WHERE id = ?', [newPosition, id]);
         
-        await commit();
+        await run("COMMIT");
         res.json({ id, position: newPosition });
       } catch (err) {
-        await rollback();
+        await run('ROLLBACK');
         throw err;
       }
     } catch (err) {
@@ -164,10 +165,10 @@ const PORT = 3000;
           'UPDATE items SET position = position - 1 WHERE position > ? AND list_id = ?',
           [deletedPosition, listId]
         );
-        await commit();
+        await run("COMMIT");
         res.json({ message: 'Item deleted' });
       } catch (err) {
-        await rollback();
+        await run('ROLLBACK');
         throw err;
       }
     } catch (err) {

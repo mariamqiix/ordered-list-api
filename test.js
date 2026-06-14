@@ -23,8 +23,8 @@ async function runTests() {
     });
     const list = await listRes.json();
     const listId = list.id;
-    printMessage(list.id && list.name === 'My Todo List', 'List created successfully');
-    console.log();
+    printMessage(list.id && list.name === 'test list', 'List created successfully');
+    
 
 
     // test no.2:  is to add 5 items into the previous list created using its id
@@ -70,7 +70,7 @@ async function runTests() {
     });
     const moveResult = await moveRes.json();
     printMessage(moveResult.position === 1, 'Item moved to position 1');
-
+console.log(moveResult);
     const itemsAfterMove = await (await fetch(`${server_url}/lists/${listId}/items`)).json();
     const itemNamesAfterMove = itemsAfterMove.map(i => i.name);
     const expectedOrder = ['3', '1', '2', '4', '5'];
