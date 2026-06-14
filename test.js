@@ -70,7 +70,6 @@ async function runTests() {
     });
     const moveResult = await moveRes.json();
     printMessage(moveResult.position === 1, 'Item moved to position 1');
-console.log(moveResult);
     const itemsAfterMove = await (await fetch(`${server_url}/lists/${listId}/items`)).json();
     const itemNamesAfterMove = itemsAfterMove.map(i => i.name);
     const expectedOrder = ['3', '1', '2', '4', '5'];
